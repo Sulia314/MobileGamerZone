@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поддержка - Mobile Gamer Zone</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; padding: 50px; text-align: center; }
+        .card { background: #1e1e1e; padding: 40px; border-radius: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #00ffea; }
+        h1 { color: #00ffea; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; background: #333; border: 1px solid #444; color: white; border-radius: 5px; }
+        .btn { background: #00ffea; color: #121212; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Служба поддержки 🛠</h1>
+        <p>Возникли проблемы? Напишите нам, и мы ответим в течение часа.</p>
+        <form>
+            <input type="text" placeholder="Ваш Email">
+            <textarea placeholder="Опишите проблему" rows="5"></textarea>
+            <button type="button" class="btn" onclick="alert('Сообщение отправлено!')">Отправить запрос</button>
+        </form>
+        <br><br>
+        <a href="{% url 'index' %}" style="color: #666;">Вернуться на главную</a>
+    </div>
+</body>
+</html>

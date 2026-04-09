@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Выход - Gamer Zone</title>
+    <style>
+        body { background: #121212; color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .auth-card { background: #1e1e1e; padding: 40px; border-radius: 20px; border: 1px solid #ff4e4e; width: 400px; }
+        h2 { color: #ff4e4e; margin-bottom: 20px; }
+        a { display: inline-block; margin-top: 20px; color: #00ffea; text-decoration: none; border: 1px solid #00ffea; padding: 10px 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <h2>Вы вышли из системы</h2>
+        <p>Ждем тебя снова, геймер!</p>
+        <a href="{% url 'login' %}">Войти снова</a>
+    </div>
+</body>
+</html>

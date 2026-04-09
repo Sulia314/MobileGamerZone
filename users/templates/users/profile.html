@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль Геймера - Gamer Zone</title>
+    <style>
+        body { background: #121212; color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+
+        .profile-card {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #00ffea;
+            width: 500px;
+            box-shadow: 0 0 25px rgba(0, 255, 234, 0.15);
+            text-align: center;
+        }
+
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            background: #00ffea;
+            color: #121212;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            text-transform: uppercase;
+        }
+
+        h2 { color: #00ffea; text-transform: uppercase; margin-bottom: 30px; letter-spacing: 2px; }
+
+        .info-box { background: #2a2a2a; padding: 20px; border-radius: 12px; text-align: left; margin-bottom: 30px; border-left: 4px solid #00ffea; }
+        .info-item { margin-bottom: 15px; font-size: 1.1rem; }
+        .info-label { color: #00ffea; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+        .btn-group { display: flex; gap: 10px; flex-direction: column; }
+
+        .btn-home {
+            background: #00ffea;
+            color: #121212;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-home:hover { transform: scale(1.03); background: #00ccbb; }
+
+        .btn-logout {
+            background: none;
+            border: 1px solid #ff4e4e;
+            color: #ff4e4e;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn-logout:hover { background: #ff4e4e; color: white; }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="avatar-circle">{{ user.username|first }}</div>
+
+        <h2>Карточка Геймера</h2>
+
+        <div class="info-box">
+            <div class="info-item">
+                <span class="info-label">Никнейм:</span>
+                {{ user.username }}
+            </div>
+            <div class="info-item">
+                <span class="info-label">Email:</span>
+                {{ user.email|default:"Секретный e-mail" }}
+            </div>
+            <div class="info-item">
+                <span class="info-label">В системе с:</span>
+                {{ user.date_joined|date:"d F Y" }}
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="{% url 'index' %}" class="btn-home">Вернуться в магазин</a>
+
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">Выйти из аккаунта</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

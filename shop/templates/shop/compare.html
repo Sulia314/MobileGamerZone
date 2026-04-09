@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сравнение товаров</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th, td { border: 1px solid #333; padding: 15px; text-align: center; }
+        th { background: #1e1e1e; color: #00ffea; }
+        tr:hover { background: #1a1a1a; }
+        img { width: 100px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #00ffea;">Сравнение гаджетов ⚖</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Характеристика</th>
+                {% for product in products %}
+                    <th>{{ product.name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Фото</td>
+                {% for product in products %}
+                    <td><img src="{{ product.image.url }}"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Цена</td>
+                {% for product in products %}
+                    <td style="color: #00ffea; font-weight: bold;">{{ product.price }} ₽</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Описание</td>
+                {% for product in products %}
+                    <td style="font-size: 0.8rem; color: #ccc;">{{ product.description|truncatechars:50 }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div style="text-align: center;">
+        <a href="{% url 'index' %}" style="color: #00ffea; text-decoration: none;">← Назад в магазин</a>
+    </div>
+</body>
+</html>
