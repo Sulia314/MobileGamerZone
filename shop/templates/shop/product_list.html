@@ -300,5 +300,76 @@
             setInterval(showNextSlide, 4000);
         }
     </script>
+<style>
+        .main-footer {
+            background-color: #0a0a0a;
+            color: #666;
+            padding: 50px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(0, 255, 234, 0.2);
+            text-align: center;
+        }
+        .footer-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .footer-disclaimer-title {
+            color: #00ffea;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .footer-disclaimer-text {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 20px;
+        }
+        .footer-line {
+            width: 40px; height: 2px; background: #333; margin: 15px auto;
+        }
+    </style>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <span class="footer-disclaimer-title">⚠️ Правовая информация</span>
+            <div class="footer-disclaimer-text">
+                <p>
+                    Данный сайт <strong>Mobile Gamer Zone</strong> является учебным проектом и создан исключительно в демонстрационных целях.
+                    Мы не являемся официальным магазином, дилером или представителем компаний <strong>Nubia, RedMagic</strong> или других брендов, представленных на сайте.
+                </p>
+                <div class="footer-line"></div>
+                <p>
+                    Все торговые марки, логотипы и изображения товаров принадлежат их законным владельцам. Контент используется для обучения веб-разработке и демонстрации навыков создания интерфейсов.
+                    Любые действия по «покупке» на данном сайте не являются реальными финансовыми операциями. Администрация проекта не несет ответственности за любые ошибочные действия пользователей.
+                </p>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Mobile Gamer Zone. Created for educational purposes.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://creativv.ai/chat-widget.js" defer></script>
+    <script>
+      window.addEventListener('load', function() {
+        if(typeof initChatWidget === 'function'){
+            initChatWidget({
+              botName: "GamerBot",
+              welcomeMessage: "Привет! Я помогу разобраться в характеристиках RedMagic. Что подсказать?",
+              mainColor: "#00ffea",
+              botKnowledge: "Ты — консультант Mobile Gamer Zone. Твоя база: RedMagic 10 Pro, Nubia 9 Pro. Помогай выбирать девайсы для игр."
+            });
+        }
+      });
+    </script>
 </body>
 </html>
