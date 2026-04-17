@@ -350,15 +350,21 @@
             document.body.style.overflow = "auto";
         }
 
-        // Функция для открытия чата при клике в меню
         function openChatWidget() {
-            closeNav(); // Закрываем боковую панель
-            // Эмулируем клик по иконке бота, которую создает скрипт creativv
+            closeNav(); 
+            // Ищем кнопку виджета creativv по классу
             const chatButton = document.querySelector('.creativv-chat-button');
+            
             if (chatButton) {
                 chatButton.click();
             } else {
-                console.log("Виджет еще загружается...");
+                // Если кнопка еще не создана, попробуем найти её через 500мс
+                console.log("Ожидание загрузки GamerBot...");
+                setTimeout(() => {
+                    const retryButton = document.querySelector('.creativv-chat-button');
+                    if (retryButton) retryButton.click();
+                    else alert("GamerBot еще загружается, попробуйте через секунду");
+                }, 500);
             }
         }
 
