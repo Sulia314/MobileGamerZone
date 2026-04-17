@@ -137,7 +137,13 @@
 
         .sidebar a:hover, .sidebar button:hover { color: #00ffea; background: #1a1a1a; }
 
-        /* --- СЕТКА ТОВАРОВ (ИСПРАВЛЕНО) --- */
+        /* Стиль для кнопки бота в меню */
+        .bot-menu-btn {
+            color: #00ffea !important;
+            font-weight: bold;
+        }
+
+        /* --- СЕТКА ТОВАРОВ --- */
         .product-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -175,7 +181,6 @@
             padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 700;
         }
 
-        /* ИСПРАВЛЕННАЯ КОРЗИНА: теперь она СЛЕВА, чтобы не мешать боту СПРАВА */
         .floating-cart {
             position: fixed; bottom: 30px; left: 30px; background: #00ffea; color: #000;
             padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold;
@@ -241,6 +246,9 @@
 
         <h3>Магазин</h3>
         <a href="{% url 'index' %}">📱 Все гаджеты</a>
+
+        <button onclick="openChatWidget()" class="bot-menu-btn">🤖 Спросить GamerBot</button>
+
         {% for cat in categories %}
         <a href="?category={{ cat.id }}">🎮 {{ cat.name }}</a>
         {% endfor %}
@@ -340,6 +348,18 @@
             document.getElementById("mySidebar").style.left = "-300px";
             document.getElementById("overlay").style.display = "none";
             document.body.style.overflow = "auto";
+        }
+
+        // Функция для открытия чата при клике в меню
+        function openChatWidget() {
+            closeNav(); // Закрываем боковую панель
+            // Эмулируем клик по иконке бота, которую создает скрипт creativv
+            const chatButton = document.querySelector('.creativv-chat-button');
+            if (chatButton) {
+                chatButton.click();
+            } else {
+                console.log("Виджет еще загружается...");
+            }
         }
 
         let currentSlide = 0;
