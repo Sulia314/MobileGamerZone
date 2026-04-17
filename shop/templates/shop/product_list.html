@@ -136,39 +136,14 @@
         }
 
         .sidebar a:hover, .sidebar button:hover { color: #00ffea; background: #1a1a1a; }
-
+        
+        /* Стиль для кнопки бота в меню */
         .bot-menu-btn {
             color: #00ffea !important;
             font-weight: bold;
         }
 
-        /* --- ОКНО ЧАТА (НОВОЕ) --- */
-        #chat-window {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
-            background: #161616;
-            border: 2px solid #00ffea;
-            border-radius: 15px;
-            z-index: 2000;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);
-        }
-        .chat-header {
-            padding: 10px 15px;
-            background: #00ffea;
-            color: #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            border-radius: 10px 10px 0 0;
-        }
-
-        /* --- СЕТКА ТОВАРОВ --- */
+        /* --- СЕТКА ТОВАРОВ (ИСПРАВЛЕНО) --- */
         .product-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -207,49 +182,13 @@
         }
 
         .floating-cart {
-            position: fixed; bottom: 30px; left: 30px; background: #00ffea; color: #000;
+            position: fixed; bottom: 30px; right: 30px; background: #00ffea; color: #000;
             padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold;
             z-index: 999;
         }
 
         .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        .main-footer {
-            background-color: #0a0a0a;
-            color: #666;
-            padding: 50px 20px;
-            margin-top: 60px;
-            border-top: 1px solid rgba(0, 255, 234, 0.2);
-            text-align: center;
-        }
-        .footer-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .footer-disclaimer-title {
-            color: #00ffea;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            display: block;
-        }
-        .footer-disclaimer-text {
-            font-size: 0.85rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-        .footer-copyright {
-            font-size: 0.75rem;
-            color: #444;
-            border-top: 1px solid #1a1a1a;
-            padding-top: 20px;
-        }
-        .footer-line {
-            width: 40px; height: 2px; background: #333; margin: 15px auto;
-        }
     </style>
 </head>
 <body>
@@ -271,7 +210,7 @@
 
         <h3>Магазин</h3>
         <a href="{% url 'index' %}">📱 Все гаджеты</a>
-
+        
         <button onclick="openChatWidget()" class="bot-menu-btn">🤖 Спросить GamerBot</button>
 
         {% for cat in categories %}
@@ -296,14 +235,6 @@
     </div>
 
     <div id="overlay" class="overlay" onclick="closeNav()"></div>
-
-    <div id="chat-window">
-        <div class="chat-header">
-            <span>GamerBot Online</span>
-            <span style="cursor:pointer" onclick="closeChat()">&times;</span>
-        </div>
-        <div id="bot-container" style="height:100%; width:100%;"></div>
-    </div>
 
     <div class="hero-section">
         <div class="hero-badge">BEST GAMING SHOP 2026</div>
@@ -357,10 +288,12 @@
             <div class="footer-disclaimer-text">
                 <p>
                     Данный сайт <strong>Mobile Gamer Zone</strong> является учебным проектом и создан исключительно в демонстрационных целях.
+                    Мы не являемся официальным магазином, дилером или представителем компаний <strong>Nubia, RedMagic</strong> или других брендов, представленных на сайте.
                 </p>
                 <div class="footer-line"></div>
                 <p>
-                    Все торговые марки принадлежат их владельцам.
+                    Все торговые марки, логотипы и изображения товаров принадлежат их законным владельцам. Контент используется для обучения веб-разработке и демонстрации навыков создания интерфейсов.
+                    Любые действия по «покупке» на данном сайте не являются реальными финансовыми операциями. Администрация проекта не несет ответственности за любые ошибочные действия пользователей.
                 </p>
             </div>
             <div class="footer-copyright">
@@ -381,27 +314,21 @@
             document.body.style.overflow = "auto";
         }
 
-        // Исправленная функция бота
+        // Функция принудительного открытия чата из меню
         function openChatWidget() {
-            closeNav();
-            document.getElementById("chat-window").style.display = "flex";
-            
-            // Если бот еще не инициализирован в контейнере
-            if (!document.getElementById("bot-container").hasChildNodes()) {
-                if(typeof initChatWidget === 'function'){
-                    initChatWidget({
-                        containerId: "bot-container",
-                        botName: "GamerBot",
-                        welcomeMessage: "Привет! Я GamerBot. Чем помочь?",
-                        mainColor: "#00ffea",
-                        botKnowledge: "Ты консультант магазина Mobile Gamer Zone."
-                    });
-                }
+            closeNav(); // закрываем меню
+            // Ищем кнопку виджета creativv по стандартному классу
+            const chatButton = document.querySelector('.creativv-chat-button');
+            if (chatButton) {
+                chatButton.click();
+            } else {
+                // Если кнопка еще не подгрузилась, пробуем открыть через API виджета
+                console.log("Ожидание загрузки GamerBot...");
+                setTimeout(() => {
+                    const retryButton = document.querySelector('.creativv-chat-button');
+                    if (retryButton) retryButton.click();
+                }, 500);
             }
-        }
-
-        function closeChat() {
-            document.getElementById("chat-window").style.display = "none";
         }
 
         let currentSlide = 0;
@@ -412,9 +339,23 @@
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].style.display = 'block';
         }
-        if (slides.length > 1) setInterval(showNextSlide, 4000);
+        if (slides.length > 1) {
+            setInterval(showNextSlide, 4000);
+        }
     </script>
 
     <script src="https://creativv.ai/chat-widget.js" defer></script>
+    <script>
+      window.addEventListener('load', function() {
+        if(typeof initChatWidget === 'function'){
+            initChatWidget({
+              botName: "GamerBot",
+              welcomeMessage: "Привет! Я помогу разобраться в характеристиках RedMagic. Что подсказать?",
+              mainColor: "#00ffea",
+              botKnowledge: "Ты — консультант Mobile Gamer Zone. Твоя база: RedMagic 10 Pro, Nubia 9 Pro. Помогай выбирать девайсы для игр."
+            });
+        }
+      });
+    </script>
 </body>
 </html>
